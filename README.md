@@ -17,7 +17,9 @@ This program is made as an answer to an assignment. Some parts of this program a
 
 ## Running the program
 
-1. Right click on your `Java Project` --> `Run As` --> `Java Application` --> either `RoboGame` or `Parser`
+1. Right click on your `Java Project` --> `Run As` --> `Java Application` --> either `RoboGame` or `Parser` (throws an error if it cannot parse a program)
+2. See `TestPrograms` directory for the files used to run the robots.
+3. This parser needs to be capable of running them so that the robots will do as commanded 
 
 ## Overview
 
