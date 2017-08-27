@@ -21,3 +21,4 @@ This program is made as an answer to an assignment. Some parts of this program a
 
 ## Overview
 
+Please refer to <a href='https://github.com/rjperez94/RoboParser/blob/master/brief.pdf'> the brief </a> for more information about this project
