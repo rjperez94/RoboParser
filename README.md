@@ -1,5 +1,12 @@
 # RoboParser
 
+
+## Overview
+
+Please refer to <a href='https://github.com/rjperez94/RoboParser/blob/master/brief.pdf'> the brief </a> for more information about this project
+
+I only did up to some features of `Stage 3`
+
 ## Copyright
 
 This program is made as an answer to an assignment. Some parts of this program are subject to Copyright by Victoria University of Wellington. These parts are explicitly indicated as code comments
@@ -19,10 +26,4 @@ This program is made as an answer to an assignment. Some parts of this program a
 
 1. Right click on your `Java Project` --> `Run As` --> `Java Application` --> either `RoboGame` or `Parser` (throws an error if it cannot parse a program)
 2. See `TestPrograms` directory for the files used to run the robots.
-3. This parser needs to be capable of running them so that the robots will do as commanded 
-
-## Overview
-
-Please refer to <a href='https://github.com/rjperez94/RoboParser/blob/master/brief.pdf'> the brief </a> for more information about this project
-
-<p> I only did up to some features of `Stage 3`
+3. This parser needs to be capable of running them so that the robots will do as commanded
