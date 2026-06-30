@@ -5,16 +5,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 
 
 public class RoboGame extends JFrame {
+    // Load required assets using a JFileChooser
+    private static JFileChooser fileChooser = new JFileChooser();
+    private static final String FUEL = "fuel.png";
+    private static File ASSETS_DIR;
 
-    private WorldComponent worldComp = new WorldComponent();
+    private static WorldComponent worldComp;
     private File code1, code2;
 
     public static boolean debugDisplay = true;
@@ -33,6 +33,39 @@ public class RoboGame extends JFrame {
         setLocationRelativeTo(null);
 
         setVisible(true);
+    }
+
+    private static void chooseDir() {
+        File test = null;
+
+        // set up the file chooser
+        fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setDialogTitle("Select asset directory");
+        fileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+
+        // run the file chooser and check the user didn't hit cancel
+        if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            // get the files in the selected directory and match them to
+            // the files we need.
+            File directory = fileChooser.getSelectedFile();
+            File[] files = directory.listFiles();
+
+            for (File f : files) {
+                if (f.getName().equals(FUEL)) {
+                    test = f;
+                }
+            }
+
+            // check none of the files are missing, and call the load
+            // method in your code.
+            if (test == null) {
+                JOptionPane.showMessageDialog(null, "Directory does not contain correct files", "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            } else {
+                ASSETS_DIR = new File(test.getParent());    //  Set assets directory
+            }
+        }
     }
 
     private void createMenu() {
@@ -151,6 +184,10 @@ public class RoboGame extends JFrame {
     }
 
     public static void main(String[] args) {
+        chooseDir();
+
+        worldComp = new WorldComponent(ASSETS_DIR.toPath());
+
         new RoboGame();
     }
 }

@@ -11,6 +11,7 @@ import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -24,20 +25,22 @@ public class WorldComponent extends JComponent {
     private static final int ANIMATION_DELAY = 20;
     private static final int WORLD_UPDATE_DELAY = 33;
 
-
     private BufferedImage fuelImage;
     private World world;
     private Timer timer;
+    private Path assetPath;
 
     private int frame = 0;
 
-    public WorldComponent() {
+    public WorldComponent(Path assetPath) {
         super();
-        world = new World();
+        this.assetPath = assetPath;
+
+        world = new World(this.assetPath);
         setPreferredSize(new Dimension(600, 600));
 
         try {
-            fuelImage = ImageIO.read(new File("assets/fuel.png"));
+            fuelImage = ImageIO.read(new File(this.assetPath.toAbsolutePath() + "/fuel.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -53,7 +56,7 @@ public class WorldComponent extends JComponent {
         if (timer != null)
             timer.cancel();
         world.reset();
-        world = new World();
+        world = new World(this.assetPath);
     }
 
     public void loadRobotProgram(int rob, File code) {
