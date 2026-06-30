@@ -1,4 +1,5 @@
 package mainProgram;
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,106 +12,97 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 
-@SuppressWarnings("serial")
 public class RoboGame extends JFrame {
 
     private WorldComponent worldComp = new WorldComponent();
     private File code1, code2;
 
     public static boolean debugDisplay = true;
-    
 
-    public RoboGame(){
-	super("Robots");
-	setDefaultCloseOperation(EXIT_ON_CLOSE);
-	setResizable(false);
 
-	add(worldComp, BorderLayout.CENTER);
+    public RoboGame() {
+        super("Robots");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
 
-	createMenu();
-	pack();
-		
-	setLocationRelativeTo(null);
-		
-	setVisible(true);
+        add(worldComp, BorderLayout.CENTER);
+
+        createMenu();
+        pack();
+
+        setLocationRelativeTo(null);
+
+        setVisible(true);
     }
 
-    private void createMenu(){
-	JMenuBar menu = new JMenuBar();
+    private void createMenu() {
+        JMenuBar menu = new JMenuBar();
 
-	final JMenu loadMenu = new JMenu("Load Program");
-	final JMenu debugMenu = new JMenu("Debug ");
-	final JMenuItem load1 = new JMenuItem("Robot 1");
-	final JMenuItem load2 = new JMenuItem("Robot 2");
-	final JMenuItem start = new JMenuItem("Start");
-	final JMenuItem reset = new JMenuItem("Reset");
-	final JMenuItem debugOn = new JMenuItem("On");
-	final JMenuItem debugOff = new JMenuItem("Off");
-	JMenuItem quit = new JMenuItem("Quit");
+        final JMenu loadMenu = new JMenu("Load Program");
+        final JMenu debugMenu = new JMenu("Debug ");
+        final JMenuItem load1 = new JMenuItem("Robot 1");
+        final JMenuItem load2 = new JMenuItem("Robot 2");
+        final JMenuItem start = new JMenuItem("Start");
+        final JMenuItem reset = new JMenuItem("Reset");
+        final JMenuItem debugOn = new JMenuItem("On");
+        final JMenuItem debugOff = new JMenuItem("Off");
+        JMenuItem quit = new JMenuItem("Quit");
 
-	menu.add(loadMenu);
-	loadMenu.add(load1);
-	loadMenu.add(load2);
-	menu.add(start);
-	menu.add(reset);
-	menu.add(debugMenu);
-	debugMenu.add(debugOn);
-	debugMenu.add(debugOff);
-	menu.add(quit);
-	setJMenuBar(menu);
+        menu.add(loadMenu);
+        loadMenu.add(load1);
+        loadMenu.add(load2);
+        menu.add(start);
+        menu.add(reset);
+        menu.add(debugMenu);
+        debugMenu.add(debugOn);
+        debugMenu.add(debugOff);
+        menu.add(quit);
+        setJMenuBar(menu);
 
-	// Add listeners to menu items.
+        // Add listeners to menu items.
 
-	load1.addActionListener(new ActionListener() {@Override
-		public void actionPerformed(ActionEvent e) {
-		    code1 = getCodeFile();
-		    if (code1!=null){
-			worldComp.loadRobotProgram(1,code1);
-			worldComp.repaint();
-		    }
-		}
-	    });
+        load1.addActionListener(e -> {
+            code1 = getCodeFile();
+            if (code1 != null) {
+                worldComp.loadRobotProgram(1, code1);
+                worldComp.repaint();
+            }
+        });
 
-	load2.addActionListener(new ActionListener() {@Override
-		public void actionPerformed(ActionEvent e) {
-		    code2 = getCodeFile();
-		    if (code2!=null){
-			worldComp.loadRobotProgram(2, code2);
-			worldComp.repaint();
-		    }
-		}
-	    });
-		
-	start.addActionListener(new ActionListener() {@Override
-		public void actionPerformed(ActionEvent e) {
-		    load1.setEnabled(false);
-		    load2.setEnabled(false);
-		    start.setEnabled(false);
-		    worldComp.start();
-		}
-	    });
-	reset.addActionListener(new ActionListener() {@Override
-		public void actionPerformed(ActionEvent e) {
-		    worldComp.reset();
-		    if(code1 != null) { worldComp.loadRobotProgram(1,code1); }
-		    if(code2 != null) { worldComp.loadRobotProgram(2,code2); }
-		    worldComp.repaint();
-		    load1.setEnabled(true);
-		    load2.setEnabled(true);
-		    start.setEnabled(true);
-		}
-	    });
+        load2.addActionListener(e -> {
+            code2 = getCodeFile();
+            if (code2 != null) {
+                worldComp.loadRobotProgram(2, code2);
+                worldComp.repaint();
+            }
+        });
 
-	debugOn.addActionListener(new ActionListener() {@Override
-         	public void actionPerformed(ActionEvent e) {debugDisplay=true;}});
-	debugOff.addActionListener(new ActionListener() {@Override
-         	public void actionPerformed(ActionEvent e) {debugDisplay=false;}});
-		
-	quit.addActionListener(new ActionListener() {@Override
-		public void actionPerformed(ActionEvent e) {
-		    System.exit(0);
-		}
-	    });
+        start.addActionListener(e -> {
+            load1.setEnabled(false);
+            load2.setEnabled(false);
+            start.setEnabled(false);
+            worldComp.start();
+        });
+
+        reset.addActionListener(e -> {
+            worldComp.reset();
+            if (code1 != null) {
+                worldComp.loadRobotProgram(1, code1);
+            }
+            if (code2 != null) {
+                worldComp.loadRobotProgram(2, code2);
+            }
+            worldComp.repaint();
+            load1.setEnabled(true);
+            load2.setEnabled(true);
+            start.setEnabled(true);
+        });
+
+        debugOn.addActionListener(e -> debugDisplay = true);
+
+        debugOff.addActionListener(e -> debugDisplay = false);
+
+        quit.addActionListener(e -> System.exit(0));
 		
 	/*
 	} catch (FileNotFoundException e) {e.printStackTrace();}
@@ -149,14 +141,16 @@ public class RoboGame extends JFrame {
     }
 
 
-    public File getCodeFile(){
-    JFileChooser chooser = new JFileChooser(".");//System.getProperty("user.dir"));
-    int res = chooser.showOpenDialog(this);
-    if(res == JFileChooser.APPROVE_OPTION){return chooser.getSelectedFile();}
-    return null;
-}
+    public File getCodeFile() {
+        JFileChooser chooser = new JFileChooser(".");//System.getProperty("user.dir"));
+        int res = chooser.showOpenDialog(this);
+        if (res == JFileChooser.APPROVE_OPTION) {
+            return chooser.getSelectedFile();
+        }
+        return null;
+    }
 
     public static void main(String[] args) {
-	new RoboGame();
+        new RoboGame();
     }
 }
